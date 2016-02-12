@@ -3,4 +3,4 @@ all:
 install:
 	mvn install
 run:
-	java -jar ./target/ServerSocket.jar
+	java -jar ./target/Server.jar
