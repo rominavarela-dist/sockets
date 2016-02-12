@@ -30,11 +30,30 @@ public class Server {
 			serverSocket = new ServerSocket(serverPort);
 			System.out.println("[SERVER] Server listening at port " + serverPort);
 			
+			// connect
 			clientSocket = serverSocket.accept();
-			System.out.println("[SERVER] Connection started. Sending data...");
-			
+			InputStream in = clientSocket.getInputStream();
 			OutputStream out = clientSocket.getOutputStream();
-			out.write(100);
+			System.out.println("[SERVER] Connection started");
+			
+			// listen request
+			Struct req = new Struct();
+			byte[] reqData = new byte[Struct.sizeInBytes()];
+			in.read(reqData);
+			req.readBytes(reqData);
+			System.out.println("[SERVER] Request:");
+			System.out.println(req);
+			
+			// send response
+			Struct res = new Struct();
+			res.x = -req.x;
+			res.y = -req.y;
+			res.z = (char) (req.z + 32);
+			System.out.println("[SERVER] Response:");
+			System.out.println(res);
+			
+			byte[] resData = res.toByteArray();
+			out.write(resData);
 			System.out.println("[SERVER] Done");
 			
 			serverSocket.close();
