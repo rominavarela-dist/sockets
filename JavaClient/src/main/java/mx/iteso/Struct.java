@@ -1,6 +1,7 @@
 package mx.iteso;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class Struct {
 	
@@ -13,17 +14,17 @@ public class Struct {
 	}
 	
 	public void readBytes(byte[] bytes) {
-		ByteBuffer buff = ByteBuffer.wrap(bytes);
+		ByteBuffer buff = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN);
 		this.x = buff.getInt();
 		this.y = buff.getFloat();
-		this.z = buff.getChar();
+		this.z = (char) buff.get();
 	}
 	
 	public byte[] toByteArray() {
-		ByteBuffer buff = ByteBuffer.allocate(Struct.sizeInBytes());
+		ByteBuffer buff = ByteBuffer.allocate(Struct.sizeInBytes()).order(ByteOrder.LITTLE_ENDIAN);
 		buff.putInt(this.x);
 		buff.putFloat(this.y);
-		buff.putChar(this.z);
+		buff.put((byte)this.z);
 		return buff.array();
 	}
 	

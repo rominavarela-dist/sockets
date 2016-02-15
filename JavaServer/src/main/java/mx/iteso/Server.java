@@ -46,9 +46,9 @@ public class Server {
 			
 			// send response
 			Struct res = new Struct();
-			res.x = -req.x;
-			res.y = -req.y;
-			res.z = (char) (req.z + 32);
+			res.x = req.x + 1;
+			res.y = req.y + 1;
+			res.z = (char) (req.z + 1);
 			System.out.println("[SERVER] Response:");
 			System.out.println(res);
 			
