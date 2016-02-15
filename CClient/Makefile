@@ -37,4 +37,4 @@ all:
 	g++ $(CXXFLAGS) $(program_SRCS) $(LDFLAGS) $(CPPFLAGS) -o $(program_NAME)
 
 run:
-	./$(program_NAME)
+	./$(program_NAME) 10.0.1.110 9000

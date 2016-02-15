@@ -3,37 +3,33 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
-
-#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <cstdlib>
-#include <iostream>
-#include <pthread.h>
+
+#include "struct.h"
 
 using namespace std;
 
-const char* serverAddr= "10.0.1.110";
-const int serverPort= 9000;
-
+const char* serverAddr;
+int serverPort;
 int sockfd;//socket file descriptor
 struct sockaddr_in address;//ipv4 address
-
-struct Struct
-{
-	int x;
-	float y;
-	char z;
-};
 
 /**
 * @method main
 **/
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
 
 	// load configuration
-	std::cout << "Hello World!" << endl;
+	std::cout << argc << endl;
+	if(argc != 3)
+	{
+		std::cout << "[CLIENT] Error. Run with arguments <address> <port>" << endl;
+		exit(1);
+	}
+	serverAddr = argv[1];
+	serverPort = atoi(argv[2]);
 	std::cout << "[CLIENT] Connecting to " << serverAddr << ":" << serverPort << endl;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
